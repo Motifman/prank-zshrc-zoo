@@ -29,3 +29,10 @@ If you want to create a custom virus, write the editing command targeting zshrc 
 ```
 source train.sh virus_hoge.sed
 ```
+
+
+## TODO
+
+- [] sl virus 
+- [] editor virus
+- [] catmeme virus
