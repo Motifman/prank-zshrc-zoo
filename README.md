@@ -33,6 +33,6 @@ source train.sh virus_hoge.sed
 
 ## TODO
 
-- [] sl virus 
-- [] editor virus
-- [] catmeme virus
+- [ ] sl virus 
+- [ ] editor virus
+- [ ] catmeme virus
