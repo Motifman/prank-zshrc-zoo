@@ -14,7 +14,7 @@ If you accidentally execute a command other than 'source', please run 'reset.sh'
 ```
 source reset.sh
 ```
-## World's Nabeatsu
+## World's Nabeatsu virus
 World's Nabeatsu is famous Japanese Comedian.
 ```
 source train.sh virus_fool.sed
@@ -24,3 +24,8 @@ Please execute the following command to remove the alias and precmd.
 source reset_fool.sed
 ```
 
+## Custom virus
+If you want to create a custom virus, write the editing command targeting zshrc into a .sed file, and execute it as follows.
+```
+source train.sh virus_hoge.sed
+```
