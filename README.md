@@ -21,7 +21,47 @@ source train.sh virus_fool.sed
 ```
 Please execute the following command to remove the alias and precmd.
 ```
-source reset_fool.sed
+source reset_fool.sh
+```
+
+## sl virus
+```
+source train.sh virus_sl.sed
+```
+Reset:
+```
+source reset_sl.sh
+```
+
+## editor virus
+```
+source train.sh virus_edit.sed
+```
+Reset:
+```
+source reset_edit.sh
+```
+
+## catmeme virus
+```
+source train.sh virus_cat.sed
+```
+(One-time: prints a cat meme on the first `cat`, then self-destructs.)
+
+## side-job virus
+Randomly shows a "looking for a side job" message on the right prompt.
+```
+source train.sh virus_sidejob.sed
+```
+Reset:
+```
+source reset_sidejob.sh
+```
+
+## Emergency reset
+If you are not sure which virus was applied, this removes everything:
+```
+source reset_all.sh
 ```
 
 ## Custom virus
@@ -35,5 +75,5 @@ source train.sh virus_hoge.sed
 
 - [x] sl virus 
 - [x] editor virus
-- [ ] catmeme virus
-- [ ] side-job virus 
+- [x] catmeme virus
+- [x] side-job virus 
