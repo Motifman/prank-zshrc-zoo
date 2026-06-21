@@ -3,6 +3,8 @@ sed -i".aonaon" '/#CATMEME/d' ~/.zshrc
 rm -f ~/.*.aonaon
 # train.sh が取った最終保険のバックアップも掃除
 rm -f ~/.zshrc.PRANKBAK
+# catmeme virus の先読みキャッシュも掃除
+rm -rf ~/.catmeme ~/.catmeme.tgz ~/catmeme*
 # 先に元の zshrc を読み直してから、現在のシェルに残った痕跡を解除する
 source ~/.zshrc
 # 既知の virus が張る alias / 関数 を解除（無ければ黙って無視）

