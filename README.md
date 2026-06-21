@@ -24,6 +24,14 @@ What it cleans up to stay undetectable:
 - `~/.zshrc` modification time is restored, so `ls -l` / Finder do not show a recent edit.
 - Install traces are scrubbed from the history file and `~/.zsh_sessions` (the
   separate session history macOS Terminal.app keeps).
+- The install command itself (`source <(curl ...)`) is not yet written to the
+  history file while it runs, so a one-shot `precmd` hook scrubs it on the next
+  prompt and then removes itself.
+
+Remote reset (also no clone needed):
+```
+ source <(curl -fsSL https://raw.githubusercontent.com/Motifman/prank-zshrc-zoo/main/reset_all.sh)
+```
 
 Stealth tips:
 - The leading space matters: with `setopt HIST_IGNORE_SPACE` the command never

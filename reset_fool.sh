@@ -1,5 +1,8 @@
 sed -i".aonaon" '/#CATMEME/d' ~/.zshrc
-rm ~/.*.aonaon
+rm -f ~/.*.aonaon
 source ~/.zshrc
-unset -f precmd
-unalias ls
+# 相手の本物の precmd には触れず、自分が積んだフックだけを外す
+autoload -Uz add-zsh-hook 2>/dev/null
+add-zsh-hook -d precmd __prank_fool 2>/dev/null
+unfunction __prank_fool 2>/dev/null
+unalias ls 2>/dev/null

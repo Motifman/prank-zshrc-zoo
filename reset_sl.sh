@@ -1,4 +1,4 @@
 sed -i".aonaon" '/#CATMEME/d' ~/.zshrc
-rm ~/.*.aonaon
-unalias ls
+rm -f ~/.*.aonaon
+unalias ls 2>/dev/null
 source ~/.zshrc
